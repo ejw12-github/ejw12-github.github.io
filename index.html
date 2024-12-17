@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FTC Match Scoring</title>
-    <script>
-        alert("Use this for team practice ONLY!");
-    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,6 +34,7 @@
             display: flex;
             justify-content: space-around;
             margin-top: 10px;
+            flex-wrap: wrap;
         }
         .button {
             padding: 10px;
@@ -72,6 +70,18 @@
         }
         .plus { background-color: #4CAF50; color: white; }
         .minus { background-color: #f44336; color: white; }
+        .timer-container {
+            margin-top: 20px;
+            font-size: 30px;
+        }
+        .timer {
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .timer-icon {
+            font-size: 60px;
+        }
     </style>
 </head>
 <body>
@@ -83,14 +93,22 @@
     <div class="container">
         <!-- Alliance 1 -->
         <div class="alliance" id="alliance1">
-            <div class="alliance-name">Alliance 1</div>
+            <div class="alliance-name">
+                Team 1: <input type="text" id="team1-name" value="Team 1"> | 
+                Team 2: <input type="text" id="team2-name" value="Team 2">
+            </div>
             <div class="score-container">
                 Score: <span id="score1">0</span>
             </div>
             <div class="buttons">
                 <button class="button yellow" onclick="updateScore(1, 2)">Sample (2 points)</button>
-                <button class="button blue" onclick="updateScore(1, 6)">Specimen (Low Bar 6 points)</button>
+                <button class="button red" onclick="updateScore(1, 6)">Specimen (Low Bar 6 points)</button>
+                <button class="button red" onclick="updateScore(1, 10)">Specimen (High Bar 10 points)</button>
+                <button class="button yellow" onclick="updateScore(1, 4)">Sample (Low Basket 4 points)</button>
+                <button class="button yellow" onclick="updateScore(1, 8)">Sample (High Basket 8 points)</button>
                 <button class="button gray" onclick="updateScore(1, 3)">Ascent 1 (3 points)</button>
+                <button class="button gray" onclick="updateScore(1, 15)">Ascent 2 (15 points)</button>
+                <button class="button gray" onclick="updateScore(1, 30)">Ascent 3 (30 points)</button>
             </div>
             <div class="plus-minus-buttons">
                 <button class="plus-minus-button plus" onclick="adjustScore(1, 1)">+</button>
@@ -100,14 +118,22 @@
 
         <!-- Alliance 2 -->
         <div class="alliance" id="alliance2">
-            <div class="alliance-name">Alliance 2</div>
+            <div class="alliance-name">
+                Team 3: <input type="text" id="team3-name" value="Team 3"> | 
+                Team 4: <input type="text" id="team4-name" value="Team 4">
+            </div>
             <div class="score-container">
                 Score: <span id="score2">0</span>
             </div>
             <div class="buttons">
                 <button class="button yellow" onclick="updateScore(2, 2)">Sample (2 points)</button>
-                <button class="button blue" onclick="updateScore(2, 6)">Specimen (Low Bar 6 points)</button>
+                <button class="button red" onclick="updateScore(2, 6)">Specimen (Low Bar 6 points)</button>
+                <button class="button red" onclick="updateScore(2, 10)">Specimen (High Bar 10 points)</button>
+                <button class="button yellow" onclick="updateScore(2, 4)">Sample (Low Basket 4 points)</button>
+                <button class="button yellow" onclick="updateScore(2, 8)">Sample (High Basket 8 points)</button>
                 <button class="button gray" onclick="updateScore(2, 3)">Ascent 1 (3 points)</button>
+                <button class="button gray" onclick="updateScore(2, 15)">Ascent 2 (15 points)</button>
+                <button class="button gray" onclick="updateScore(2, 30)">Ascent 3 (30 points)</button>
             </div>
             <div class="plus-minus-buttons">
                 <button class="plus-minus-button plus" onclick="adjustScore(2, 1)">+</button>
@@ -116,10 +142,21 @@
         </div>
     </div>
 
+    <div class="timer-container">
+        <div id="timer" class="timer">0:30</div>
+        <div id="timer-icon" class="timer-icon">🤖</div>
+        <button onclick="startAutonTimer()">Start Auton</button>
+        <button onclick="startSwitchPeriod()">Start Switch Period</button>
+        <button onclick="startTeleopPeriod()">Start Teleop</button>
+    </div>
+
     <script>
         let alliance1Score = 0;
         let alliance2Score = 0;
         let isAutonComplete = false; // To track if the Auton period is over and sample/specimen points are doubled
+        let timerInterval;
+        let timerSeconds = 30;
+        let currentPeriod = 'Auton'; // Can be 'Auton', 'Switch', or 'Teleop'
 
         // Update score based on actions
         function updateScore(alliance, points) {
@@ -145,18 +182,45 @@
             }
         }
 
-        // Simulate the end of the Auton period and doubling sample/specimen points
-        function endAuton() {
-            isAutonComplete = true;
+        // Timer functions
+        function startAutonTimer() {
+            currentPeriod = 'Auton';
+            timerSeconds = 30;
+            updateTimerDisplay();
+            timerInterval = setInterval(timerTick, 1000);
+            document.getElementById('timer-icon').innerText = '🤖';
         }
 
-        // Reset the match
-        function resetMatch() {
-            alliance1Score = 0;
-            alliance2Score = 0;
-            document.getElementById('score1').innerText = alliance1Score;
-            document.getElementById('score2').innerText = alliance2Score;
-            isAutonComplete = false;
+        function startSwitchPeriod() {
+            currentPeriod = 'Switch';
+            timerSeconds = 8;
+            updateTimerDisplay();
+            document.getElementById('timer-icon').innerText = '✋';
+        }
+
+        function startTeleopPeriod() {
+            currentPeriod = 'Teleop';
+            timerSeconds = 120;
+            updateTimerDisplay();
+            document.getElementById('timer-icon').innerText = '🎮';
+        }
+
+        function timerTick() {
+            if (timerSeconds <= 0) {
+                clearInterval(timerInterval);
+                if (currentPeriod === 'Switch') {
+                    isAutonComplete = true; // Auton period is over
+                }
+            } else {
+                timerSeconds--;
+                updateTimerDisplay();
+            }
+        }
+
+        function updateTimerDisplay() {
+            let minutes = Math.floor(timerSeconds / 60);
+            let seconds = timerSeconds % 60;
+            document.getElementById('timer').innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         }
     </script>
 </body>
