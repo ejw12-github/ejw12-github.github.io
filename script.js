@@ -25,11 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (time > 0) {
                     time--;
                     updateTimeDisplay();
-                    if (time === 120) {
+                    if (time === 120) { // 30 seconds for autonomous
                         isAutonomous = false;
-                        document.querySelectorAll('.teleop-only').forEach(button => {
-                            button.disabled = false;
-                        });
+                        document.querySelectorAll('.teleop-only').forEach(button => button.disabled = false);
                     }
                 } else {
                     clearInterval(timer);
@@ -40,29 +38,20 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     const pauseTimer = () => {
-        clearInterval(timer);
-        timer = null;
+        if (timer) {
+            clearInterval(timer);
+            timer = null;
+        }
     };
 
     const restartTimer = () => {
         pauseTimer();
         time = 150;
-        updateTimeDisplay();
         isAutonomous = true;
-        document.querySelectorAll('.teleop-only').forEach(button => {
-            button.disabled = true;
-        });
-    };
-
-    const updateScore = (element, points) => {
-        let score = parseInt(element.textContent, 10);
-        if (isAutonomous && ['samples (net zone)', 'samples (low basket)', 'samples (high basket)', 'specimens (low bar)', 'specimens (high bar)'].includes(points.description)) {
-            score += points.value * 2;
-        } else {
-            score += points.value;
-        }
-        if (score < 0) score = 0;
-        element.textContent = score;
+        updateTimeDisplay();
+        document.querySelectorAll('.teleop-only').forEach(button => button.disabled = true);
+        scoreElements.score1.textContent = '0';
+        scoreElements.score2.textContent = '0';
     };
 
     playButton.addEventListener('click', startTimer);
@@ -70,16 +59,40 @@ document.addEventListener('DOMContentLoaded', function () {
     restartButton.addEventListener('click', restartTimer);
 
     document.querySelectorAll('.score-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const points = {
-                value: parseInt(button.dataset.points, 10),
-                description: button.dataset.description
-            };
-            const scoreElement = scoreElements[`score${button.dataset.score}`];
-            updateScore(scoreElement, points);
+        button.addEventListener('click', function () {
+            const points = parseInt(this.getAttribute('data-points'));
+            const alliance = this.getAttribute('data-alliance');
+            const description = this.getAttribute('data-description');
+
+            if (isAutonomous && (description.includes('samples') || description.includes('specimens'))) {
+                updateScore(alliance, points * 2);
+            } else {
+                updateScore(alliance, points);
+            }
         });
     });
 
+    document.querySelectorAll('.plus').forEach(button => {
+        button.addEventListener('click', function () {
+            const scoreId = this.getAttribute('data-score');
+            updateScore(scoreId, 1);
+        });
+    });
+
+    document.querySelectorAll('.minus').forEach(button => {
+        button.addEventListener('click', function () {
+            const scoreId = this.getAttribute('data-score');
+            updateScore(scoreId, -1);
+        });
+    });
+
+    const updateScore = (alliance, points) => {
+        const scoreElement = scoreElements[`score${alliance}`];
+        const currentScore = parseInt(scoreElement.textContent);
+        scoreElement.textContent = currentScore + points;
+    };
+
+    // Initialize
     updateTimeDisplay();
-    restartTimer(); // Initialize teleop-only buttons to be disabled on load
+    document.querySelectorAll('.teleop-only').forEach(button => button.disabled = true);
 });
