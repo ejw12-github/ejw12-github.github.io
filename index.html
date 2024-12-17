@@ -19,35 +19,34 @@
         .container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 1200px;
-            width: 100%;
+            gap: 10px;
+            width: 90%;
+            max-width: 800px;
         }
         .alliance {
             background-color: #fff;
-            padding: 20px;
+            padding: 10px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
         .alliance-name {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
         }
         .score-display {
-            font-size: 30px;
+            font-size: 24px;
             margin: 10px 0;
         }
         .buttons {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            gap: 10px;
+            gap: 8px;
             margin-top: 10px;
         }
         .button {
-            padding: 15px;
-            font-size: 18px;
+            padding: 10px;
+            font-size: 16px;
             font-weight: bold;
             border: none;
             border-radius: 8px;
@@ -62,25 +61,25 @@
             opacity: 0.8;
         }
         .score-container {
-            font-size: 24px;
+            font-size: 18px;
             margin-bottom: 15px;
         }
         .match-name {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .match-controls {
             margin-top: 20px;
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
         }
         .match-controls button {
-            padding: 15px 30px;
-            font-size: 20px;
+            padding: 12px 25px;
+            font-size: 16px;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 8px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -91,24 +90,24 @@
         }
         .timer-container {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 30px;
         }
         .timer {
-            font-size: 80px;
+            font-size: 60px;
             font-weight: bold;
         }
         .timer-icon {
-            font-size: 100px;
+            font-size: 80px;
         }
         .plus-minus-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .plus-minus-button {
-            padding: 10px 20px;
-            font-size: 20px;
+            padding: 8px 18px;
+            font-size: 16px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
@@ -141,14 +140,14 @@
                 Score: <span id="score1">0</span>
             </div>
             <div class="buttons">
-                <button class="button yellow" onclick="updateScore(1, 2)">Sample (+/-) 2</button>
-                <button class="button red" onclick="updateScore(1, 6)">Specimen (Low Bar) (+/-) 6</button>
-                <button class="button red" onclick="updateScore(1, 10)">Specimen (High Bar) (+/-) 10</button>
-                <button class="button yellow" onclick="updateScore(1, 4)">Sample (Low Basket) (+/-) 4</button>
-                <button class="button yellow" onclick="updateScore(1, 8)">Sample (High Basket) (+/-) 8</button>
-                <button class="button gray" onclick="updateScore(1, 3)">Ascent 1 (+/-) 3</button>
-                <button class="button gray" onclick="updateScore(1, 15)">Ascent 2 (+/-) 15</button>
-                <button class="button gray" onclick="updateScore(1, 30)">Ascent 3 (+/-) 30</button>
+                <button class="button yellow" onclick="updateScore(1, 2)">Sample (+2)</button>
+                <button class="button red" onclick="updateScore(1, 6)">Specimen (Low Bar) (+6)</button>
+                <button class="button red" onclick="updateScore(1, 10)">Specimen (High Bar) (+10)</button>
+                <button class="button yellow" onclick="updateScore(1, 4)">Sample (Low Basket) (+4)</button>
+                <button class="button yellow" onclick="updateScore(1, 8)">Sample (High Basket) (+8)</button>
+                <button class="button gray" onclick="updateScore(1, 3)">Ascent 1 (+3)</button>
+                <button class="button gray" onclick="updateScore(1, 15)">Ascent 2 (+15)</button>
+                <button class="button gray" onclick="updateScore(1, 30)">Ascent 3 (+30)</button>
             </div>
         </div>
 
@@ -162,14 +161,14 @@
                 Score: <span id="score2">0</span>
             </div>
             <div class="buttons">
-                <button class="button yellow" onclick="updateScore(2, 2)">Sample (+/-) 2</button>
-                <button class="button red" onclick="updateScore(2, 6)">Specimen (Low Bar) (+/-) 6</button>
-                <button class="button red" onclick="updateScore(2, 10)">Specimen (High Bar) (+/-) 10</button>
-                <button class="button yellow" onclick="updateScore(2, 4)">Sample (Low Basket) (+/-) 4</button>
-                <button class="button yellow" onclick="updateScore(2, 8)">Sample (High Basket) (+/-) 8</button>
-                <button class="button gray" onclick="updateScore(2, 3)">Ascent 1 (+/-) 3</button>
-                <button class="button gray" onclick="updateScore(2, 15)">Ascent 2 (+/-) 15</button>
-                <button class="button gray" onclick="updateScore(2, 30)">Ascent 3 (+/-) 30</button>
+                <button class="button yellow" onclick="updateScore(2, 2)">Sample (+2)</button>
+                <button class="button red" onclick="updateScore(2, 6)">Specimen (Low Bar) (+6)</button>
+                <button class="button red" onclick="updateScore(2, 10)">Specimen (High Bar) (+10)</button>
+                <button class="button yellow" onclick="updateScore(2, 4)">Sample (Low Basket) (+4)</button>
+                <button class="button yellow" onclick="updateScore(2, 8)">Sample (High Basket) (+8)</button>
+                <button class="button gray" onclick="updateScore(2, 3)">Ascent 1 (+3)</button>
+                <button class="button gray" onclick="updateScore(2, 15)">Ascent 2 (+15)</button>
+                <button class="button gray" onclick="updateScore(2, 30)">Ascent 3 (+30)</button>
             </div>
         </div>
     </div>
@@ -194,6 +193,8 @@
     <script>
         let alliance1Score = 0;
         let alliance2Score = 0;
+        let alliance1AscentCount = 0;
+        let alliance2AscentCount = 0;
         let isAutonComplete = false; // Track auton period completion
         let timerInterval;
         let timerSeconds = 30;
@@ -205,17 +206,36 @@
                 if (currentPeriod === 'Switch') {
                     points *= 2; // Double points in Switch period
                 }
-                alliance1Score += points;
+                if (points === 3 || points === 15 || points === 30) { // Ascent points
+                    if (alliance1AscentCount < 2) {
+                        alliance1Score += points;
+                        alliance1AscentCount++;
+                    } else {
+                        alert('Max Ascent points reached for Alliance 1!');
+                    }
+                } else {
+                    alliance1Score += points;
+                }
                 document.getElementById('score1').textContent = alliance1Score;
             } else if (alliance === 2) {
                 if (currentPeriod === 'Switch') {
                     points *= 2; // Double points in Switch period
                 }
-                alliance2Score += points;
+                if (points === 3 || points === 15 || points === 30) { // Ascent points
+                    if (alliance2AscentCount < 2) {
+                        alliance2Score += points;
+                        alliance2AscentCount++;
+                    } else {
+                        alert('Max Ascent points reached for Alliance 2!');
+                    }
+                } else {
+                    alliance2Score += points;
+                }
                 document.getElementById('score2').textContent = alliance2Score;
             }
         }
 
+        // Adjust scores for both teams (plus and minus)
         function adjustScore(alliance, adjustment) {
             if (alliance === 1) {
                 alliance1Score += adjustment;
@@ -267,6 +287,8 @@
             clearInterval(timerInterval);
             alliance1Score = 0;
             alliance2Score = 0;
+            alliance1AscentCount = 0;
+            alliance2AscentCount = 0;
             document.getElementById('score1').textContent = alliance1Score;
             document.getElementById('score2').textContent = alliance2Score;
             currentPeriod = 'Auton';
