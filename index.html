@@ -3,108 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FTC Into the Deep Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>FTC Match Scoring</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .alliance {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .alliance-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .score-display {
+            font-size: 30px;
+            margin: 10px 0;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        .button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .yellow { background-color: yellow; }
+        .blue { background-color: blue; color: white; }
+        .red { background-color: red; color: white; }
+        .gray { background-color: gray; }
+        .score-container {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .match-name {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .plus-minus-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .plus-minus-button {
+            padding: 8px 15px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .plus { background-color: #4CAF50; color: white; }
+        .minus { background-color: #f44336; color: white; }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <button id="play">Play</button>
-        <button id="pause">Pause</button>
-        <button id="restart">Restart</button>
+
+    <div class="match-name">
+        Match Name: <input type="text" id="match-name" value="FTC Finals Match 2">
     </div>
-    <div class="timer" id="timer">
-        <span id="timer-icon">🤖</span>
-        <span id="timer-text">0:30</span>
-    </div>
+
     <div class="container">
-        <div class="match-info">
-            <input type="text" id="match-name" value="Finals Match 2">
-        </div>
-        <div class="alliances">
-            <div class="alliance" id="alliance1">
-                <h2>Alliance 1</h2>
-                <div class="team">
-                    <input type="text" class="team-number" id="team1" value="-1">
-                </div>
-                <div class="team">
-                    <input type="text" class="team-number" id="team2" value="-2">
-                </div>
-                <div class="score">
-                    <span class="score-value" id="score1">0</span>
-                </div>
+        <!-- Alliance 1 -->
+        <div class="alliance" id="alliance1">
+            <div class="alliance-name">Alliance 1</div>
+            <div class="score-container">
+                Score: <span id="score1">0</span>
             </div>
-            <div class="alliance" id="alliance2">
-                <h2>Alliance 2</h2>
-                <div class="team">
-                    <input type="text" class="team-number" id="team3" value="-3">
-                </div>
-                <div class="team">
-                    <input type="text" class="team-number" id="team4" value="-4">
-                </div>
-                <div class="score">
-                    <span class="score-value" id="score2">0</span>
-                </div>
+            <div class="buttons">
+                <button class="button yellow" onclick="updateScore(1, 2)">Sample (2 points)</button>
+                <button class="button blue" onclick="updateScore(1, 6)">Specimen (Low Bar 6 points)</button>
+                <button class="button gray" onclick="updateScore(1, 3)">Ascent 1 (3 points)</button>
+            </div>
+            <div class="plus-minus-buttons">
+                <button class="plus-minus-button plus" onclick="adjustScore(1, 1)">+</button>
+                <button class="plus-minus-button minus" onclick="adjustScore(1, -1)">-</button>
             </div>
         </div>
-        <div class="scoring-buttons">
-            <h3>Scoring</h3>
-            <div class="scoring">
-                <button class="score-button yellow" data-points="2" data-description="samples (net zone)" data-alliance="1">Samples (Net Zone) Alliance 1</button>
-                <span class="count" id="samples1-count">0</span>
 
-                <button class="score-button yellow" data-points="2" data-description="samples (net zone)" data-alliance="2">Samples (Net Zone) Alliance 2</button>
-                <span class="count" id="samples2-count">0</span>
-
-                <button class="score-button yellow" data-points="4" data-description="samples (low basket)" data-alliance="1">Samples (Low Basket) Alliance 1</button>
-                <span class="count" id="samples-low1-count">0</span>
-
-                <button class="score-button yellow" data-points="4" data-description="samples (low basket)" data-alliance="2">Samples (Low Basket) Alliance 2</button>
-                <span class="count" id="samples-low2-count">0</span>
-
-                <button class="score-button yellow" data-points="8" data-description="samples (high basket)" data-alliance="1">Samples (High Basket) Alliance 1</button>
-                <span class="count" id="samples-high1-count">0</span>
-
-                <button class="score-button yellow" data-points="8" data-description="samples (high basket)" data-alliance="2">Samples (High Basket) Alliance 2</button>
-                <span class="count" id="samples-high2-count">0</span>
-
-                <button class="score-button blue" data-points="6" data-description="specimens (low bar)" data-alliance="1">Specimens (Low Bar) Alliance 1</button>
-                <span class="count" id="specimens-low1-count">0</span>
-
-                <button class="score-button red" data-points="6" data-description="specimens (low bar)" data-alliance="2">Specimens (Low Bar) Alliance 2</button>
-                <span class="count" id="specimens-low2-count">0</span>
-
-                <button class="score-button blue" data-points="10" data-description="specimens (high bar)" data-alliance="1">Specimens (High Bar) Alliance 1</button>
-                <span class="count" id="specimens-high1-count">0</span>
-
-                <button class="score-button red" data-points="10" data-description="specimens (high bar)" data-alliance="2">Specimens (High Bar) Alliance 2</button>
-                <span class="count" id="specimens-high2-count">0</span>
-
-                <button class="score-button gray" data-points="3" data-description="ascent 1" data-alliance="1">Ascent 1 Alliance 1</button>
-                <span class="count" id="ascent1-1-count">0</span>
-
-                <button class="score-button gray" data-points="3" data-description="ascent 1" data-alliance="2">Ascent 1 Alliance 2</button>
-                <span class="count" id="ascent1-2-count">0</span>
-
-                <button class="score-button gray" data-points="3" data-description="observation zone" data-alliance="1">Observation Zone Alliance 1</button>
-                <span class="count" id="observation1-count">0</span>
-
-                <button class="score-button gray" data-points="3" data-description="observation zone" data-alliance="2">Observation Zone Alliance 2</button>
-                <span class="count" id="observation2-count">0</span>
-
-                <button class="score-button gray teleop-only" data-points="15" data-description="ascent 2" data-alliance="1">Ascent 2 Alliance 1</button>
-                <span class="count" id="ascent2-1-count">0</span>
-
-                <button class="score-button gray teleop-only" data-points="15" data-description="ascent 2" data-alliance="2">Ascent 2 Alliance 2</button>
-                <span class="count" id="ascent2-2-count">0</span>
-
-                <button class="score-button gray teleop-only" data-points="30" data-description="ascent 3" data-alliance="1">Ascent 3 Alliance 1</button>
-                <span class="count" id="ascent3-1-count">0</span>
-
-                <button class="score-button gray teleop-only" data-points="30" data-description="ascent 3" data-alliance="2">Ascent 3 Alliance 2</button>
-                <span class="count" id="ascent3-2-count">0</span>
+        <!-- Alliance 2 -->
+        <div class="alliance" id="alliance2">
+            <div class="alliance-name">Alliance 2</div>
+            <div class="score-container">
+                Score: <span id="score2">0</span>
+            </div>
+            <div class="buttons">
+                <button class="button yellow" onclick="updateScore(2, 2)">Sample (2 points)</button>
+                <button class="button blue" onclick="updateScore(2, 6)">Specimen (Low Bar 6 points)</button>
+                <button class="button gray" onclick="updateScore(2, 3)">Ascent 1 (3 points)</button>
+            </div>
+            <div class="plus-minus-buttons">
+                <button class="plus-minus-button plus" onclick="adjustScore(2, 1)">+</button>
+                <button class="plus-minus-button minus" onclick="adjustScore(2, -1)">-</button>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        let alliance1Score = 0;
+        let alliance2Score = 0;
+        let isAutonComplete = false; // To track if the Auton period is over and sample/specimen points are doubled
+
+        // Update score based on actions
+        function updateScore(alliance, points) {
+            if (alliance === 1) {
+                if (isAutonComplete) points *= 2;
+                alliance1Score += points;
+                document.getElementById('score1').innerText = alliance1Score;
+            } else if (alliance === 2) {
+                if (isAutonComplete) points *= 2;
+                alliance2Score += points;
+                document.getElementById('score2').innerText = alliance2Score;
+            }
+        }
+
+        // Adjust score with +/- buttons
+        function adjustScore(alliance, change) {
+            if (alliance === 1) {
+                alliance1Score += change;
+                document.getElementById('score1').innerText = alliance1Score;
+            } else if (alliance === 2) {
+                alliance2Score += change;
+                document.getElementById('score2').innerText = alliance2Score;
+            }
+        }
+
+        // Simulate the end of the Auton period and doubling sample/specimen points
+        function endAuton() {
+            isAutonComplete = true;
+        }
+
+        // Reset the match
+        function resetMatch() {
+            alliance1Score = 0;
+            alliance2Score = 0;
+            document.getElementById('score1').innerText = alliance1Score;
+            document.getElementById('score2').innerText = alliance2Score;
+            isAutonComplete = false;
+        }
+    </script>
 </body>
 </html>
