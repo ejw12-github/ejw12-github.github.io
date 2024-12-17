@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FTC Into the Deep Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <script>
-        alert("For team practice or scrimmage matches ONLY. Do not use at official competitions!");
-    </script>
 </head>
 <body>
     <div class="header">
@@ -16,7 +13,7 @@
         <button id="restart">Restart</button>
     </div>
     <div class="timer" id="timer">
-        <img id="timer-icon" src="robot.png" alt="Timer Icon" class="icon">
+        <span id="timer-icon">🤖</span>
         <span id="timer-text">0:30</span>
     </div>
     <div class="container">
@@ -33,9 +30,7 @@
                     <input type="text" class="team-number" id="team2" value="-2">
                 </div>
                 <div class="score">
-                    <button class="minus" data-score="1">-</button>
                     <span class="score-value" id="score1">0</span>
-                    <button class="plus" data-score="1">+</button>
                 </div>
             </div>
             <div class="alliance" id="alliance2">
@@ -47,32 +42,67 @@
                     <input type="text" class="team-number" id="team4" value="-4">
                 </div>
                 <div class="score">
-                    <button class="minus" data-score="2">-</button>
                     <span class="score-value" id="score2">0</span>
-                    <button class="plus" data-score="2">+</button>
                 </div>
             </div>
         </div>
         <div class="scoring-buttons">
             <h3>Scoring</h3>
-            <button class="score-button yellow" data-points="2" data-description="samples (net zone)" data-alliance="1">Samples (Net Zone) Alliance 1</button>
-            <button class="score-button yellow" data-points="2" data-description="samples (net zone)" data-alliance="2">Samples (Net Zone) Alliance 2</button>
-            <button class="score-button yellow" data-points="4" data-description="samples (low basket)" data-alliance="1">Samples (Low Basket) Alliance 1</button>
-            <button class="score-button yellow" data-points="4" data-description="samples (low basket)" data-alliance="2">Samples (Low Basket) Alliance 2</button>
-            <button class="score-button yellow" data-points="8" data-description="samples (high basket)" data-alliance="1">Samples (High Basket) Alliance 1</button>
-            <button class="score-button yellow" data-points="8" data-description="samples (high basket)" data-alliance="2">Samples (High Basket) Alliance 2</button>
-            <button class="score-button blue" data-points="6" data-description="specimens (low bar)" data-alliance="1">Specimens (Low Bar) Alliance 1</button>
-            <button class="score-button red" data-points="6" data-description="specimens (low bar)" data-alliance="2">Specimens (Low Bar) Alliance 2</button>
-            <button class="score-button blue" data-points="10" data-description="specimens (high bar)" data-alliance="1">Specimens (High Bar) Alliance 1</button>
-            <button class="score-button red" data-points="10" data-description="specimens (high bar)" data-alliance="2">Specimens (High Bar) Alliance 2</button>
-            <button class="score-button gray" data-points="3" data-description="ascent 1" data-alliance="1">Ascent 1 Alliance 1</button>
-            <button class="score-button gray" data-points="3" data-description="ascent 1" data-alliance="2">Ascent 1 Alliance 2</button>
-            <button class="score-button gray" data-points="3" data-description="observation zone" data-alliance="1">Observation Zone Alliance 1</button>
-            <button class="score-button gray" data-points="3" data-description="observation zone" data-alliance="2">Observation Zone Alliance 2</button>
-            <button class="score-button gray teleop-only" data-points="15" data-description="ascent 2" data-alliance="1">Ascent 2 Alliance 1</button>
-            <button class="score-button gray teleop-only" data-points="15" data-description="ascent 2" data-alliance="2">Ascent 2 Alliance 2</button>
-            <button class="score-button gray teleop-only" data-points="30" data-description="ascent 3" data-alliance="1">Ascent 3 Alliance 1</button>
-            <button class="score-button gray teleop-only" data-points="30" data-description="ascent 3" data-alliance="2">Ascent 3 Alliance 2</button>
+            <div class="scoring">
+                <button class="score-button yellow" data-points="2" data-description="samples (net zone)" data-alliance="1">Samples (Net Zone) Alliance 1</button>
+                <span class="count" id="samples1-count">0</span>
+
+                <button class="score-button yellow" data-points="2" data-description="samples (net zone)" data-alliance="2">Samples (Net Zone) Alliance 2</button>
+                <span class="count" id="samples2-count">0</span>
+
+                <button class="score-button yellow" data-points="4" data-description="samples (low basket)" data-alliance="1">Samples (Low Basket) Alliance 1</button>
+                <span class="count" id="samples-low1-count">0</span>
+
+                <button class="score-button yellow" data-points="4" data-description="samples (low basket)" data-alliance="2">Samples (Low Basket) Alliance 2</button>
+                <span class="count" id="samples-low2-count">0</span>
+
+                <button class="score-button yellow" data-points="8" data-description="samples (high basket)" data-alliance="1">Samples (High Basket) Alliance 1</button>
+                <span class="count" id="samples-high1-count">0</span>
+
+                <button class="score-button yellow" data-points="8" data-description="samples (high basket)" data-alliance="2">Samples (High Basket) Alliance 2</button>
+                <span class="count" id="samples-high2-count">0</span>
+
+                <button class="score-button blue" data-points="6" data-description="specimens (low bar)" data-alliance="1">Specimens (Low Bar) Alliance 1</button>
+                <span class="count" id="specimens-low1-count">0</span>
+
+                <button class="score-button red" data-points="6" data-description="specimens (low bar)" data-alliance="2">Specimens (Low Bar) Alliance 2</button>
+                <span class="count" id="specimens-low2-count">0</span>
+
+                <button class="score-button blue" data-points="10" data-description="specimens (high bar)" data-alliance="1">Specimens (High Bar) Alliance 1</button>
+                <span class="count" id="specimens-high1-count">0</span>
+
+                <button class="score-button red" data-points="10" data-description="specimens (high bar)" data-alliance="2">Specimens (High Bar) Alliance 2</button>
+                <span class="count" id="specimens-high2-count">0</span>
+
+                <button class="score-button gray" data-points="3" data-description="ascent 1" data-alliance="1">Ascent 1 Alliance 1</button>
+                <span class="count" id="ascent1-1-count">0</span>
+
+                <button class="score-button gray" data-points="3" data-description="ascent 1" data-alliance="2">Ascent 1 Alliance 2</button>
+                <span class="count" id="ascent1-2-count">0</span>
+
+                <button class="score-button gray" data-points="3" data-description="observation zone" data-alliance="1">Observation Zone Alliance 1</button>
+                <span class="count" id="observation1-count">0</span>
+
+                <button class="score-button gray" data-points="3" data-description="observation zone" data-alliance="2">Observation Zone Alliance 2</button>
+                <span class="count" id="observation2-count">0</span>
+
+                <button class="score-button gray teleop-only" data-points="15" data-description="ascent 2" data-alliance="1">Ascent 2 Alliance 1</button>
+                <span class="count" id="ascent2-1-count">0</span>
+
+                <button class="score-button gray teleop-only" data-points="15" data-description="ascent 2" data-alliance="2">Ascent 2 Alliance 2</button>
+                <span class="count" id="ascent2-2-count">0</span>
+
+                <button class="score-button gray teleop-only" data-points="30" data-description="ascent 3" data-alliance="1">Ascent 3 Alliance 1</button>
+                <span class="count" id="ascent3-1-count">0</span>
+
+                <button class="score-button gray teleop-only" data-points="30" data-description="ascent 3" data-alliance="2">Ascent 3 Alliance 2</button>
+                <span class="count" id="ascent3-2-count">0</span>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
