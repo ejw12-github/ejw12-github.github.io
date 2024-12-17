@@ -28,8 +28,7 @@ body {
 }
 
 #timer-icon {
-    width: 48px;
-    height: 48px;
+    font-size: 48px;
     margin-right: 10px;
 }
 
@@ -91,13 +90,6 @@ body {
     margin-bottom: 20px;
 }
 
-.score button {
-    font-size: 24px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-}
-
 .score-value {
     font-size: 24px;
     margin: 0 10px;
@@ -131,6 +123,16 @@ body {
 .score-button.gray {
     background-color: gray;
     color: white;
+}
+
+.score-button.teleop-only {
+    display: none;
+}
+
+.count {
+    font-size: 18px;
+    margin-left: 10px;
+    font-weight: bold;
 }
 
 #alliance1 h2 {
