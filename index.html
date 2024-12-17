@@ -15,17 +15,19 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
         }
         .container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            width: 90%;
-            max-width: 800px;
+            gap: 15px;
+            width: 80%;
+            max-width: 700px;
+            margin-bottom: 20px;
         }
         .alliance {
             background-color: #fff;
-            padding: 10px;
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -41,7 +43,7 @@
         .buttons {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             margin-top: 10px;
         }
         .button {
@@ -95,6 +97,7 @@
         .timer {
             font-size: 60px;
             font-weight: bold;
+            margin-bottom: 10px;
         }
         .timer-icon {
             font-size: 80px;
@@ -121,9 +124,36 @@
         .team-names {
             margin-bottom: 10px;
         }
+        .mode-toggle {
+            padding: 10px;
+            background-color: #2196f3;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .mode-toggle:hover {
+            opacity: 0.8;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+        .dark-mode .alliance {
+            background-color: #2c2c2c;
+        }
+        .dark-mode .button {
+            background-color: #333333;
+            color: white;
+        }
+        .dark-mode .timer {
+            color: #ffeb3b;
+        }
     </style>
 </head>
 <body>
+
+    <div class="mode-toggle" onclick="toggleMode()">Toggle Light/Dark Mode</div>
 
     <div class="match-name">
         Match Name: <input type="text" id="match-name" value="FTC Finals Match 2">
@@ -140,14 +170,14 @@
                 Score: <span id="score1">0</span>
             </div>
             <div class="buttons">
-                <button class="button yellow" onclick="updateScore(1, 2)">Sample (+2)</button>
-                <button class="button red" onclick="updateScore(1, 6)">Specimen (Low Bar) (+6)</button>
-                <button class="button red" onclick="updateScore(1, 10)">Specimen (High Bar) (+10)</button>
-                <button class="button yellow" onclick="updateScore(1, 4)">Sample (Low Basket) (+4)</button>
-                <button class="button yellow" onclick="updateScore(1, 8)">Sample (High Basket) (+8)</button>
-                <button class="button gray" onclick="updateScore(1, 3)">Ascent 1 (+3)</button>
-                <button class="button gray" onclick="updateScore(1, 15)">Ascent 2 (+15)</button>
-                <button class="button gray" onclick="updateScore(1, 30)">Ascent 3 (+30)</button>
+                <div>(Sample) <button class="button yellow" onclick="updateScore(1, 2)">[+]</button> <button class="button red" onclick="updateScore(1, -2)">[-]</button></div>
+                <div>(Specimen Low Bar) <button class="button red" onclick="updateScore(1, 6)">[+]</button> <button class="button red" onclick="updateScore(1, -6)">[-]</button></div>
+                <div>(Specimen High Bar) <button class="button red" onclick="updateScore(1, 10)">[+]</button> <button class="button red" onclick="updateScore(1, -10)">[-]</button></div>
+                <div>(Sample Low Basket) <button class="button yellow" onclick="updateScore(1, 4)">[+]</button> <button class="button yellow" onclick="updateScore(1, -4)">[-]</button></div>
+                <div>(Sample High Basket) <button class="button yellow" onclick="updateScore(1, 8)">[+]</button> <button class="button yellow" onclick="updateScore(1, -8)">[-]</button></div>
+                <div>(Ascent 1) <button class="button gray" onclick="updateScore(1, 3)">[+]</button> <button class="button gray" onclick="updateScore(1, -3)">[-]</button></div>
+                <div>(Ascent 2) <button class="button gray" onclick="updateScore(1, 15)">[+]</button> <button class="button gray" onclick="updateScore(1, -15)">[-]</button></div>
+                <div>(Ascent 3) <button class="button gray" onclick="updateScore(1, 30)">[+]</button> <button class="button gray" onclick="updateScore(1, -30)">[-]</button></div>
             </div>
         </div>
 
@@ -161,92 +191,41 @@
                 Score: <span id="score2">0</span>
             </div>
             <div class="buttons">
-                <button class="button yellow" onclick="updateScore(2, 2)">Sample (+2)</button>
-                <button class="button red" onclick="updateScore(2, 6)">Specimen (Low Bar) (+6)</button>
-                <button class="button red" onclick="updateScore(2, 10)">Specimen (High Bar) (+10)</button>
-                <button class="button yellow" onclick="updateScore(2, 4)">Sample (Low Basket) (+4)</button>
-                <button class="button yellow" onclick="updateScore(2, 8)">Sample (High Basket) (+8)</button>
-                <button class="button gray" onclick="updateScore(2, 3)">Ascent 1 (+3)</button>
-                <button class="button gray" onclick="updateScore(2, 15)">Ascent 2 (+15)</button>
-                <button class="button gray" onclick="updateScore(2, 30)">Ascent 3 (+30)</button>
+                <div>(Sample) <button class="button yellow" onclick="updateScore(2, 2)">[+]</button> <button class="button red" onclick="updateScore(2, -2)">[-]</button></div>
+                <div>(Specimen Low Bar) <button class="button red" onclick="updateScore(2, 6)">[+]</button> <button class="button red" onclick="updateScore(2, -6)">[-]</button></div>
+                <div>(Specimen High Bar) <button class="button red" onclick="updateScore(2, 10)">[+]</button> <button class="button red" onclick="updateScore(2, -10)">[-]</button></div>
+                <div>(Sample Low Basket) <button class="button yellow" onclick="updateScore(2, 4)">[+]</button> <button class="button yellow" onclick="updateScore(2, -4)">[-]</button></div>
+                <div>(Sample High Basket) <button class="button yellow" onclick="updateScore(2, 8)">[+]</button> <button class="button yellow" onclick="updateScore(2, -8)">[-]</button></div>
+                <div>(Ascent 1) <button class="button gray" onclick="updateScore(2, 3)">[+]</button> <button class="button gray" onclick="updateScore(2, -3)">[-]</button></div>
+                <div>(Ascent 2) <button class="button gray" onclick="updateScore(2, 15)">[+]</button> <button class="button gray" onclick="updateScore(2, -15)">[-]</button></div>
+                <div>(Ascent 3) <button class="button gray" onclick="updateScore(2, 30)">[+]</button> <button class="button gray" onclick="updateScore(2, -30)">[-]</button></div>
             </div>
         </div>
     </div>
 
     <div class="timer-container">
-        <div id="timer" class="timer">0:30</div>
-        <div id="timer-icon" class="timer-icon">🤖</div>
-        <div class="match-controls">
-            <button onclick="startMatch()">Start</button>
-            <button onclick="pauseMatch()">Pause</button>
-            <button onclick="stopMatch()">Stop</button>
-        </div>
+        <div class="timer" id="timer">00:00</div>
+        <div class="timer-icon" id="timer-icon">⏳</div>
     </div>
 
-    <div class="plus-minus-buttons">
-        <button class="plus-minus-button plus" onclick="adjustScore(1, 1)">+</button>
-        <button class="plus-minus-button minus" onclick="adjustScore(1, -1)">-</button>
-        <button class="plus-minus-button plus" onclick="adjustScore(2, 1)">+</button>
-        <button class="plus-minus-button minus" onclick="adjustScore(2, -1)">-</button>
+    <div class="match-controls">
+        <button onclick="startMatch()">Start</button>
+        <button onclick="pauseMatch()">Pause</button>
+        <button onclick="stopMatch()">Stop</button>
     </div>
 
     <script>
-        let alliance1Score = 0;
-        let alliance2Score = 0;
-        let alliance1AscentCount = 0;
-        let alliance2AscentCount = 0;
-        let isAutonComplete = false; // Track auton period completion
+        // Timer logic
+        let timerSeconds = 120;
         let timerInterval;
-        let timerSeconds = 30;
-        let currentPeriod = 'Auton'; // Start with the Auton period
+        let currentPeriod = 'Auton';
 
-        // Update score based on actions
-        function updateScore(alliance, points) {
-            if (alliance === 1) {
-                if (currentPeriod === 'Switch') {
-                    points *= 2; // Double points in Switch period
-                }
-                if (points === 3 || points === 15 || points === 30) { // Ascent points
-                    if (alliance1AscentCount < 2) {
-                        alliance1Score += points;
-                        alliance1AscentCount++;
-                    } else {
-                        alert('Max Ascent points reached for Alliance 1!');
-                    }
-                } else {
-                    alliance1Score += points;
-                }
-                document.getElementById('score1').textContent = alliance1Score;
-            } else if (alliance === 2) {
-                if (currentPeriod === 'Switch') {
-                    points *= 2; // Double points in Switch period
-                }
-                if (points === 3 || points === 15 || points === 30) { // Ascent points
-                    if (alliance2AscentCount < 2) {
-                        alliance2Score += points;
-                        alliance2AscentCount++;
-                    } else {
-                        alert('Max Ascent points reached for Alliance 2!');
-                    }
-                } else {
-                    alliance2Score += points;
-                }
-                document.getElementById('score2').textContent = alliance2Score;
-            }
+        function updateTimerDisplay() {
+            let minutes = Math.floor(timerSeconds / 60);
+            let seconds = timerSeconds % 60;
+            document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
         }
 
-        // Adjust scores for both teams (plus and minus)
-        function adjustScore(alliance, adjustment) {
-            if (alliance === 1) {
-                alliance1Score += adjustment;
-                document.getElementById('score1').textContent = alliance1Score;
-            } else if (alliance === 2) {
-                alliance2Score += adjustment;
-                document.getElementById('score2').textContent = alliance2Score;
-            }
-        }
-
-        // Start the match timer
         function startMatch() {
             if (currentPeriod === 'Auton') {
                 timerSeconds = 30; // Auton period
@@ -270,42 +249,42 @@
             }, 1000);
         }
 
-        // Update the timer on the screen
-        function updateTimerDisplay() {
-            let minutes = Math.floor(timerSeconds / 60);
-            let seconds = timerSeconds % 60;
-            document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        function updateScore(alliance, points) {
+            let currentScoreElement = document.getElementById(`score${alliance}`);
+            let currentScore = parseInt(currentScoreElement.textContent);
+
+            currentScore += points;
+            currentScoreElement.textContent = currentScore;
         }
 
-        // Pause the match timer
-        function pauseMatch() {
-            clearInterval(timerInterval);
-        }
-
-        // Stop the match and reset everything
-        function stopMatch() {
-            clearInterval(timerInterval);
-            alliance1Score = 0;
-            alliance2Score = 0;
-            alliance1AscentCount = 0;
-            alliance2AscentCount = 0;
-            document.getElementById('score1').textContent = alliance1Score;
-            document.getElementById('score2').textContent = alliance2Score;
-            currentPeriod = 'Auton';
-            updateTimerDisplay();
-        }
-
-        // Move to the next period (Auton -> Switch -> Teleop)
+        // Switch periods
         function nextPeriod() {
             if (currentPeriod === 'Auton') {
                 currentPeriod = 'Switch';
+                document.getElementById('timer-icon').textContent = '🔄';
             } else if (currentPeriod === 'Switch') {
                 currentPeriod = 'Teleop';
+                document.getElementById('timer-icon').textContent = '🔄';
             } else {
                 currentPeriod = 'Auton';
             }
             startMatch(); // Restart the timer with the new period
         }
+
+        function pauseMatch() {
+            clearInterval(timerInterval);
+        }
+
+        function stopMatch() {
+            clearInterval(timerInterval);
+            document.getElementById('timer').textContent = '00:00';
+        }
+
+        // Light/Dark mode toggle
+        function toggleMode() {
+            document.body.classList.toggle('dark-mode');
+        }
     </script>
+
 </body>
 </html>
