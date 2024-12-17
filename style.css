@@ -93,10 +93,21 @@ body {
     margin: 0 10px;
 }
 
-#blue-alliance h2 {
+.scoring-buttons {
+    margin-top: 20px;
+}
+
+.scoring-buttons button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#alliance1 h2 {
     color: #007bff;
 }
 
-#red-alliance h2 {
+#alliance2 h2 {
     color: #dc3545;
 }
