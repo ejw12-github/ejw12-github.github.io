@@ -21,8 +21,16 @@ body {
 }
 
 .timer {
+    display: flex;
+    align-items: center;
     font-size: 48px;
     margin-bottom: 20px;
+}
+
+#timer-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
 }
 
 .container {
@@ -52,6 +60,7 @@ body {
 .alliances {
     display: flex;
     justify-content: space-around;
+    margin-bottom: 20px;
 }
 
 .alliance {
@@ -79,6 +88,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .score button {
@@ -102,6 +112,25 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+}
+
+.score-button.yellow {
+    background-color: yellow;
+}
+
+.score-button.blue {
+    background-color: #007bff;
+    color: white;
+}
+
+.score-button.red {
+    background-color: #dc3545;
+    color: white;
+}
+
+.score-button.gray {
+    background-color: gray;
+    color: white;
 }
 
 #alliance1 h2 {
