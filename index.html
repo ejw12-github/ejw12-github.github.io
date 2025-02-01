@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Timer & Input Restrictions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input {
+      display: block;
+      margin: 10px 0;
+      padding: 8px;
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Track Page Visibility and Restrict Input Pasting</h1>
+  <p>Total time off the page: <span id="offTime">0</span> seconds</p>
+  
+  <label for="textInput">Enter text (pasting disabled):</label>
+  <input type="text" id="textInput" placeholder="Type something..." onpaste="return false">
+
+  <script>
+    let offPageTime = 0; // Time in seconds
+    let offStartTime = 0;
+    const offTimeDisplay = document.getElementById("offTime");
+
+    // Detect visibility changes
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        // Start tracking time when user leaves the page
+        offStartTime = Date.now();
+      } else if (offStartTime) {
+        // Calculate time off the page
+        const timeSpentOff = Math.floor((Date.now() - offStartTime) / 1000);
+        offPageTime += timeSpentOff;
+        offTimeDisplay.textContent = offPageTime;
+        offStartTime = 0; // Reset the timer
+      }
+    });
+
+    // Prevent pasting into all input fields
+    document.querySelectorAll("input").forEach(input => {
+      input.addEventListener("paste", (event) => {
+        event.preventDefault();
+        alert("Pasting is disabled in this field.");
+      });
+    });
+  </script>
+</body>
+</html>
