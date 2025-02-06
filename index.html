@@ -5,12 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/images/ender-3-favicon.png">
+    <style>
+      #buy-printers {
+        background-color: lightblue;
+      }
+
+      #printers {
+        background-color: blue;
+      }
+      
+      body {
+        font-family: 'Trebuchet MS', sans-serif;
+      }
+    </style>
   </head>
   <body>
     <center>
       <h1>3d Printer Clicker</h1>
       <img src="/images/ender-3-favicon.png" onclick="cookies = click(cookies, cookiesMultiplier)"></img>
-      <h5>0 Prints in Stock (Money: $0)</h5>
+      <h3>0 Prints in Stock (Money: $0)</h3>
+      <div id="buy-printers">
+        <h2>Buy Printers</h2>
+        <p></p>
+        <div id="printers">
+          <img src="/images/ender-3-favicon.png"></img>
+          <button id="buy" onclick="ender3Count = buyEnder3(ender3Count)">Buy Ender 3 ($50)</button>
+        </div>
+      </div>
     </center>
   </body>
 </html>
