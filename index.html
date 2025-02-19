@@ -1,37 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>3d Printer Clicker</title>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/images/ender-3-favicon.png">
+    <title>Game</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+    <script defer src="script.js"></script>
     <style>
-      #buy-printers {
-        background-color: lightblue;
-      }
-
-      #printers {
-        background-color: blue;
-      }
-      
-      body {
-        font-family: 'Trebuchet MS', sans-serif;
-      }
+        body { text-align: center; font-family: Arial, sans-serif; }
+        #map, #street-view { width: 600px; height: 400px; margin: 10px auto; }
+        button { padding: 10px; margin: 10px; }
     </style>
-  </head>
-  <body>
-    <center>
-      <h1>3d Printer Clicker</h1>
-      <img src="/images/ender-3-favicon.png" onclick="cookies = click(cookies, cookiesMultiplier)"></img>
-      <h3>0 Prints in Stock (Money: $0)</h3>
-      <div id="buy-printers">
-        <h2>Buy Printers</h2>
-        <p></p>
-        <div id="printers">
-          <img src="/images/ender-3-favicon.png"></img>
-          <button id="buy" onclick="ender3Count = buyEnder3(ender3Count)">Buy Ender 3 ($50)</button>
-        </div>
-      </div>
-    </center>
-  </body>
+</head>
+<body>
+    <h1>Game</h1>
+    <div id="street-view"></div>
+    <button onclick="makeGuess()">Make Guess</button>
+    <div id="map"></div>
+    <p id="result"></p>
+</body>
 </html>
